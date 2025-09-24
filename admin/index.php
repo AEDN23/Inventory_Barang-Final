@@ -108,7 +108,7 @@ include "layout/header.php";
                                 $jumlah_keluar = $data['jumlah_keluar'];
                                 $jumlah = $data['jumlah'];
                                 $satuan = $data['satuan'];
-                                $jumlah = $data['jumlah'];
+                                // $jumlah = $data['jumlah'];
                             ?>
 
                                 <tr class="text-center <?= ((int)$jumlah < 2) ? 'jumlah-merah' : ''; ?>">

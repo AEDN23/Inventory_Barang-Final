@@ -253,11 +253,12 @@ include "layout/header.php";
                                     <td><?= $note; ?></td>
                                     <td id="status-<?= $data['id']; ?>">
                                         <?php if ($data['status_approve'] == 'pending') { ?>
-                                            <button class="btn btn-success btn-sm action-btn"
-                                                data-id="<?= $data['id']; ?>"
+                                            <button class="btn btn-success btn-sm"
+                                                id="action-btn-approve"
+                                                onclick="fetchApprove(<?= $data['id']; ?>, 'approve')"
                                                 data-action="approve">✔️Approve</button>
-                                            <button class="btn btn-danger btn-sm action-btn"
-                                                data-id="<?= $data['id']; ?>"
+                                            <button class="btn btn-danger btn-sm action-btn-reject"
+                                                onclick="fetchApprove(<?= $data['id']; ?>, 'reject')"
                                                 data-action="reject">❌Reject</button>
                                         <?php } else { ?>
                                             <span class="badge <?= $data['status_approve'] == 'approved' ? 'bg-success' : 'bg-danger'; ?>">
@@ -270,35 +271,29 @@ include "layout/header.php";
 
                                     <!-- SCRIPT -->
                                     <script>
-                                        document.querySelectorAll('.action-btn').forEach(btn => {
-                                            btn.addEventListener('click', function() {
-                                                let id = this.dataset.id;
-                                                let action = this.dataset.action;
-
-                                                fetch('../BackEnd/approve.php', {
-                                                        method: 'POST',
-                                                        headers: {
-                                                            'Content-Type': 'application/x-www-form-urlencoded'
-                                                        },
-                                                        body: `id=${id}&action=${action}`
-                                                    })
-                                                    .then(res => res.json())
-                                                    .then(data => {
-                                                        if (data.success) {
-                                                            let statusCell = document.getElementById('status-' + id);
-                                                            statusCell.innerHTML = `
-                    <span class="badge ${data.status === 'approved' ? 'bg-success' : 'bg-danger'}">
-                        ${data.status}
-                    </span>
-                    <br><small>${data.alasan}</small>
-                `;
-                                                        } else {
-                                                            alert("Gagal update status");
-                                                        }
-                                                    })
-                                                    .catch(err => console.error(err));
-                                            });
-                                        });
+                                        const fetchApprove = (id, action) => {
+                                        fetch('../BackEnd/approve.php', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                                },
+                                                body: `id=${id}&action=${action}`
+                                            })
+                                            .then(res => res.json())
+                                            .then(data => {
+                                                if (data.success) {
+                                                    let statusCell = document.getElementById('status-' + id);
+                                                    statusCell.innerHTML = `
+                                                    <span class="badge ${data.status === 'approved' ? 'bg-success' : 'bg-danger'}">
+                                                        ${data.status}
+                                                    </span>
+                                                    <br><small>${data.alasan}</small>`;
+                                                } else {
+                                                    alert("Gagal update status");
+                                                }
+                                            })
+                                            .catch(err => console.error(err));
+                                        }
                                     </script>
 
 

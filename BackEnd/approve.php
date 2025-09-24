@@ -17,9 +17,18 @@ if ($action === 'approve') {
     if ($ok) {
         $barangQuery = mysqli_query($conn, "SELECT kode_barang, jumlah_keluar FROM barang_keluar WHERE id = '$id'");
         $barang = mysqli_fetch_assoc($barangQuery);
+        //  $response = [
+        //     "success" => true,
+        //     "status" => "approved",
+        //     "alasan" => "Disetujui oleh $admin_name",
+        //     "data" => $barang['jumlah_keluar']
+        // ];
+        $jumlah_keluar = (int)$barang['jumlah_keluar'];
+        $kode_barang = $barang['kode_barang'];
+
         $updateStok = "UPDATE master_barang 
-                       SET jumlah = jumlah - {$barang['jumlah_keluar']} 
-                       WHERE kode_barang = '{$barang['kode_barang']}'";
+                       SET jumlah = jumlah - $jumlah_keluar
+                       WHERE kode_barang = '$kode_barang'";
         mysqli_query($conn, $updateStok);
 
         $response = [

@@ -52,11 +52,11 @@ include "layout/header.php";
                 const newInputGroup = document.createElement('div');
                 newInputGroup.className = 'form-group mb-3 d-flex';
                 newInputGroup.innerHTML = `
-        <input type="text" name="kodebarang[]" placeholder="Kode Barang" class="form-control me-2" required>
+        <input type="text" name="kodebarang[]" placeholder="Nama Barang" class="form-control me-2" required>
         <input type="text" name="jenisbarang[]" placeholder="Jenis Barang" class="form-control me-2" required>
-        <input type="text" name="namabarang[]" placeholder="Nama Barang" class="form-control me-2" required>
-        <input type="text" name="deskripsi[]" placeholder="Deskripsi / Tempat Penyimpanan" class="form-control me-2" required>
-        <input type="text" name="satuan[]" placeholder="Satuan Barang" class="form-control me-2" required>
+        <input type="text" name="namabarang[]" placeholder="Deskripsi" class="form-control me-2" required>
+        <input type="text" name="deskripsi[]" placeholder="Tempat Penyimpanan" class="form-control me-2" required>
+        <input type="text" name="satuan[]" placeholder="Sat uan Barang" class="form-control me-2" required>
         <input type="number" name="stok_awal[]" placeholder="Stok Awal" class="form-control me-2" required>
         <input type="text" name="maker[]" placeholder="Maker" class="form-control me-2" required>
     `;
